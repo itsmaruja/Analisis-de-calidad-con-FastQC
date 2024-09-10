@@ -42,7 +42,7 @@ http://bioconductor.org/packages/devel/bioc/vignettes/ShortRead/inst/doc/Overvie
 
 
 ```{r}
-# a="C://Users//valen//OneDrive//Documents//FACU//Año 2//bioinformatica//Analisis-de-calidad-con-FastQC//fastqfiles"
+#a="C://Users//valen//OneDrive//Documents//FACU//Año 2//bioinformatica//Analisis-de-calidad-con-FastQC//fastqfiles"
 
 #a="C://Users//user//OneDrive//Escritorio//Bioinfo//tp fastqc//archivos fatsq"
 
@@ -54,11 +54,12 @@ setwd(a)
 ```{r}
 #setwd("fastqfiles")
 setwd(a)
- 
+
 checkpoint("Rqc", path= a,{
-  files <- c("f1.fastq", "f2.fastq", "f3.fastq", "f4.fastq", "f5.fastq", "f6.fastq", "f7.fastq", "f8.fastq", "f9.fastq", "f10.fastq")
+  files <- c( "f1.fastq", "f2.fastq", "f3.fastq", "f4.fastq", "f5.fastq", "f6.fastq", "f7.fastq", "f8.fastq", "f9.fastq", "f10.fastq")
   rqcResultSet <- rqcQA(files, pair=c(1,1), workers=1)
 }, keep="rqcResultSet")
+
 
 rqcCycleGCPlot(rqcResultSet)
 rqcCycleQualityBoxPlot(rqcResultSet)
@@ -207,22 +208,27 @@ fq2<-trimTails(sampler,4,"5", successive=TRUE)
 fq2
 hist(width(fq2))
 ```
-
 ```{r}
 # vamos a quitar el primer "TTCCA":
+#before
+head(sread(sampler), 6)
 
-# before:
-head(sread(sampler),6)
-
-
-report<-trimLRPatterns(Lpattern = "TTCCA", subject = sampler, max.Rmismatch = 0, ranges = TRUE)
+report <- trimLRPatterns(Lpattern = "TTCCA", subject = sampler, max.Rmismatch = 0, ranges = TRUE)
 
 View(as.data.frame(report))
 
-fq4<-trimLRPatterns(Lpattern = "TTCCA", subject = sampler, max.Rmismatch = 0, ranges = TRUE)
+#arreglado
+fq4 <- trimLRPatterns(Lpattern = "TTCCA", subject = sampler, max.Rmismatch = 0, ranges = FALSE)
+#sin arreglar
+#fq4<-trimLRPatterns(Lpattern = "TTCCA", subject = sampler, max.Rmismatch = 0, ranges = TRUE) #TIRABA ERROR
 
-# after:
-head(sread(fq4),6)
+
+#after
+head(sread(fq4), 6)
+
+```
+
+
 ```
 
 ```{r}
@@ -264,12 +270,14 @@ writeFastq(fq2, "filtered_and_trimmed.fastq")
 ```{r , echo=FALSE}
 #c="C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\"
 #c = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\"
+
 checkpoint("Rqc", path= c, {
-  folder <-  c
+  folder <-  a
   files <- c("filtered_and_trimmed.fastq")
   rqcResultSet2 <- rqcQA(files, pair=c(1,1), workers=1)
 }, keep="rqcResultSet")
 
 rqcCycleGCPlot(rqcResultSet)
 rqcCycleQualityBoxPlot(rqcResultSet)
+
 ```
