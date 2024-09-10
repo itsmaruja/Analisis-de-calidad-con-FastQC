@@ -42,7 +42,10 @@ http://bioconductor.org/packages/devel/bioc/vignettes/ShortRead/inst/doc/Overvie
 
 
 ```{r}
-a="C://Users//valen//OneDrive//Documents//FACU//Año 2//bioinformatica//Analisis-de-calidad-con-FastQC//fastqfiles"
+# a="C://Users//valen//OneDrive//Documents//FACU//Año 2//bioinformatica//Analisis-de-calidad-con-FastQC//fastqfiles"
+
+#a="C://Users//user//OneDrive//Escritorio//Bioinfo//tp fastqc//archivos fatsq"
+
 setwd(a)
 ```
 
@@ -121,7 +124,10 @@ rqcCycleBaseCallsPlot(rqcResultSet)
 14. Visualización de los nucleótidos
 
 ```{r}
-b="C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f1.fastq"
+#b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f1.fastq"
+
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f1.fastq"
+
 sampler <- readFastq(b)
 
 head(sread(sampler), 3)
@@ -256,7 +262,8 @@ writeFastq(fq2, "filtered_and_trimmed.fastq")
 
 
 ```{r , echo=FALSE}
-c="C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\"
+#c="C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\"
+#c = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\"
 checkpoint("Rqc", path= c, {
   folder <-  c
   files <- c("filtered_and_trimmed.fastq")
