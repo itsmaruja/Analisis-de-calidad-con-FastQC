@@ -5,8 +5,11 @@ output: html_document
 date: "2023-08-24"       
 ---
 
-## Instalación y carga de paquetes: 
-# hola
+<<<<<<< HEAD
+## Instalación y carga de paquetes:
+=======
+## Instalación y carga de paquetes:
+>>>>>>> 2508912dbc7f3635c5ff28f7e9b9874b92c27ffd
 
 ```{r}
 if (!require("BiocManager", quietly = TRUE))
