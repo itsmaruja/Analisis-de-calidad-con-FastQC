@@ -5,7 +5,6 @@ output: html_document
 date: "2023-08-24"       
 ---
 
-<<<<<<< HEAD
 ## Instalación y carga de paquetes:
 =======
 ## Instalación y carga de paquetes:
@@ -41,17 +40,20 @@ http://bioconductor.org/packages/devel/bioc/vignettes/ShortRead/inst/doc/Overvie
 
 1. Descarga:
 
+
 ```{r}
-setwd("C:/Users/valen/OneDrive/Documents/FACU/Año 2/bioinformatica/fastqfilesc")
+a="C://Users//valen//OneDrive//Documents//FACU//Año 2//bioinformatica//Analisis-de-calidad-con-FastQC//fastqfiles"
+setwd(a)
 ```
 
 2. Crear el objeto: 
 
 ```{r}
-setwd("/Users/valen/OneDrive/Documents/FACU/Año 2/bioinformatica/fastqfilesc")
-
-checkpoint("Rqc", path= "/Users/ignaciocassol/Dropbox/materias de grado/Bioinformática/fastq_files_qc",{
-  files <- c("filtered_and_trimmed.fastq", "hola.fastq")
+#setwd("fastqfiles")
+setwd(a)
+ 
+checkpoint("Rqc", path= a,{
+  files <- c("f1.fastq", "f2.fastq")
   rqcResultSet <- rqcQA(files, pair=c(1,1), workers=1)
 }, keep="rqcResultSet")
 
