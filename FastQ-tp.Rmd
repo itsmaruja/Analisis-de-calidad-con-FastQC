@@ -53,7 +53,7 @@ setwd(a)
 setwd(a)
  
 checkpoint("Rqc", path= a,{
-  files <- c("f1.fastq", "f2.fastq")
+  files <- c("f1.fastq", "f2.fastq", "f3.fastq", "f4.fastq", "f5.fastq", "f6.fastq", "f7.fastq", "f8.fastq", "f9.fastq", "f10.fastq")
   rqcResultSet <- rqcQA(files, pair=c(1,1), workers=1)
 }, keep="rqcResultSet")
 
@@ -121,7 +121,8 @@ rqcCycleBaseCallsPlot(rqcResultSet)
 14. Visualización de los nucleótidos
 
 ```{r}
-sampler <- readFastq("/Users/ignaciocassol/Dropbox/materias de grado/Bioinformática/fastq_files_qc/ERR3385776_1.fastq.gz")
+b="C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f1.fastq"
+sampler <- readFastq(b)
 
 head(sread(sampler), 3)
 ```
@@ -129,7 +130,8 @@ head(sread(sampler), 3)
 14. Visualización de la calidad de los nucleótidos
 
 ```{r}
-sampler <- readFastq("/Users/ignaciocassol/Dropbox/materias de grado/Bioinformática/fastq_files_qc/ERR3385776_1.fastq.gz")
+
+sampler <- readFastq(b)
 
 head(quality(sampler), 3)
 ```
@@ -144,7 +146,7 @@ encoding(quality(sampler))
 16. Cantidad de reads y de nucleótidos
 
 ```{r , echo=FALSE}
-countFastq("/Users/ignaciocassol/Dropbox/materias de grado/Bioinformática/fastq_files_qc/ERR3385776_1.fastq.gz")
+countFastq(b)
 ```
 
 
@@ -157,7 +159,8 @@ hist(width(sampler))
 17. Filtrado y trimeo
 
 ```{r , echo=FALSE}
-countFastq("/Users/ignaciocassol/Dropbox/materias de grado/Bioinformática/fastq_files_qc/ERR3385776_1.fastq.gz")
+
+countFastq(b)
 ```
 
 ```{r}
@@ -247,14 +250,15 @@ fq3
 ```
 
 
-```{echo=FALSE}
+```{r , echo=FALSE}
 writeFastq(fq2, "filtered_and_trimmed.fastq")
 ```
 
 
 ```{r , echo=FALSE}
-checkpoint("Rqc", path= "/home/ignacio/Dropbox/materias de grado/Bioinformática/fastq_files_qc/", {
-  folder <-  "/home/ignacio/Dropbox/materias de grado/Bioinformática/fastq_files_qc/"
+c="C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\"
+checkpoint("Rqc", path= c, {
+  folder <-  c
   files <- c("filtered_and_trimmed.fastq")
   rqcResultSet2 <- rqcQA(files, pair=c(1,1), workers=1)
 }, keep="rqcResultSet")
