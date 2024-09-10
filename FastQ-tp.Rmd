@@ -2,7 +2,7 @@
 ---
 title: "Fastq QC"
 output: html_document
-date: "2023-08-24"
+date: "2023-08-24"   
 ---
 
 ## Instalación y carga de paquetes:
