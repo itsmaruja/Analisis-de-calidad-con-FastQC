@@ -1,0 +1,258 @@
+---
+---
+title: "Fastq QC"
+output: html_document
+date: "2023-08-24"
+---
+
+## Instalación y carga de paquetes:
+
+```{r}
+if (!require("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+if (!require("FastqCleaner", quietly = TRUE))
+  BiocManager::install("FastqCleaner")
+
+if (!require("Rqc", quietly = TRUE))
+  BiocManager::install("Rqc")
+
+if (!require("ShortRead", quietly = TRUE))
+  BiocManager::install("ShortRead")
+
+library(ShortRead)
+library(FastqCleaner)
+library(Rqc)
+```
+
+
+## Tutoriales de referencia: 
+
+https://www.bioconductor.org/packages/devel/bioc/vignettes/Rqc/inst/doc/Rqc.html
+
+http://bioconductor.org/packages/devel/bioc/vignettes/ShortRead/inst/doc/Overview.pdf
+
+
+## Seteo del directorio de trabajo y descarga de archivos fastq:
+
+1. Descarga:
+
+```{r}
+setwd("C:/Users/valen/OneDrive/Documents/FACU/Año 2/bioinformatica/fastqfilesc")
+```
+
+2. Crear el objeto: 
+
+```{r}
+setwd("/Users/valen/OneDrive/Documents/FACU/Año 2/bioinformatica/fastqfilesc")
+
+checkpoint("Rqc", path= "/Users/ignaciocassol/Dropbox/materias de grado/Bioinformática/fastq_files_qc",{
+  files <- c("filtered_and_trimmed.fastq", "hola.fastq")
+  rqcResultSet <- rqcQA(files, pair=c(1,1), workers=1)
+}, keep="rqcResultSet")
+
+rqcCycleGCPlot(rqcResultSet)
+rqcCycleQualityBoxPlot(rqcResultSet)
+```
+
+3. Reporte html: 
+
+```{r}
+reportFile <- rqcReport(rqcResultSet)
+browseURL(reportFile)
+```
+
+4. Distribución de archivos de calidad media por lectura
+
+```{r, echo=FALSE}
+rqcReadQualityBoxPlot(rqcResultSet)
+```
+
+5. 
+
+
+```{r}
+rqcReadQualityPlot(rqcResultSet)
+```
+
+6. 
+
+```{r, echo=FALSE}
+rqcReadFrequencyPlot(rqcResultSet)
+```
+7. 
+
+```{r}
+rqcReadWidthPlot(rqcResultSet)
+```
+
+
+9. 
+
+```{r}
+rqcCycleGCPlot(rqcResultSet)
+```
+
+10. 
+
+```{r}
+rqcCycleQualityPlot(rqcResultSet)
+```
+
+
+12. 
+
+```{r}
+rqcCycleQualityBoxPlot(rqcResultSet)
+```
+
+13. 
+
+```{r , echo=FALSE}
+rqcCycleBaseCallsPlot(rqcResultSet)
+```
+
+14. Visualización de los nucleótidos
+
+```{r}
+sampler <- readFastq("/Users/ignaciocassol/Dropbox/materias de grado/Bioinformática/fastq_files_qc/ERR3385776_1.fastq.gz")
+
+head(sread(sampler), 3)
+```
+
+14. Visualización de la calidad de los nucleótidos
+
+```{r}
+sampler <- readFastq("/Users/ignaciocassol/Dropbox/materias de grado/Bioinformática/fastq_files_qc/ERR3385776_1.fastq.gz")
+
+head(quality(sampler), 3)
+```
+
+
+15. Codificación de los nucleótidos
+
+```{r}
+encoding(quality(sampler))
+```
+
+16. Cantidad de reads y de nucleótidos
+
+```{r , echo=FALSE}
+countFastq("/Users/ignaciocassol/Dropbox/materias de grado/Bioinformática/fastq_files_qc/ERR3385776_1.fastq.gz")
+```
+
+
+16. Tamaño de los reads
+
+```{r , echo=FALSE}
+hist(width(sampler))
+```
+
+17. Filtrado y trimeo
+
+```{r , echo=FALSE}
+countFastq("/Users/ignaciocassol/Dropbox/materias de grado/Bioinformática/fastq_files_qc/ERR3385776_1.fastq.gz")
+```
+
+```{r}
+#calculates, for each read, the sum of the encoded nucleotide probabilities.
+
+hist(alphabetScore(sampler))
+
+```
+
+```{r}
+# vamos a suponer que queremos quitar los read menores a 4000 de calidad
+
+table(alphabetScore(sampler)<4000)
+# tenemos 690 read de muy poca calidad y los vamos a quitar de nuestro 
+# fastq
+
+removed=(sampler)[alphabetScore(sampler)<4000]
+
+sampler=(sampler)[alphabetScore(sampler)>4000]
+
+hist(alphabetScore(sampler))
+hist(alphabetScore(removed))
+
+length(sampler)
+length(removed)
+
+```
+
+
+```{r}
+#trim trailing nucleotides if 4 nucleotides fall below the quality
+#encoded by "5". If successive=FALSE, the 5'th failing nucleotide and 
+#all subseqent nucleotides are trimmed. If successive=TRUE, failing
+#nucleotides must occur successively; the sequence is trimmed from the
+#first of the successive failing nucleotides.
+
+fq2<-trimTails(sampler,4,"5", successive=TRUE)
+fq2
+hist(width(fq2))
+```
+
+```{r}
+# vamos a quitar el primer "TTCCA":
+
+# before:
+head(sread(sampler),6)
+
+
+report<-trimLRPatterns(Lpattern = "TTCCA", subject = sampler, max.Rmismatch = 0, ranges = TRUE)
+
+View(as.data.frame(report))
+
+fq4<-trimLRPatterns(Lpattern = "TTCCA", subject = sampler, max.Rmismatch = 0, ranges = TRUE)
+
+# after:
+head(sread(fq4),6)
+```
+
+```{r}
+# vamos a trimear los ultimos 20 pares de bases 
+# de todos los reads de sampler: 
+
+seqs <- sread(sampler)
+trimmed_seqs <- narrow(seqs, end = width(seqs) - 20)
+
+# creamos un nuevo objeto ShortReadQ con las secuencias trimeadas
+trimmed_sampler <- ShortReadQ(
+  sread = trimmed_seqs,
+  quality = narrow(quality(sampler), end = width(quality(sampler)) - 20),
+  id = id(sampler)
+)
+
+boxplot(as(quality(trimmed_sampler), "matrix"), outline = FALSE, main="Quality Scores across all reads after trimming",
+        xlab="Position in Read", ylab="Quality Score")
+
+boxplot(as(quality(sampler), "matrix"), outline = FALSE, main="Quality Scores across all reads before trimming",
+        xlab="Position in Read", ylab="Quality Score")
+
+```
+
+
+
+
+```{r}
+fq3<-trimEnds(sampler, "A")
+fq3
+```
+
+
+```{echo=FALSE}
+writeFastq(fq2, "filtered_and_trimmed.fastq")
+```
+
+
+```{r , echo=FALSE}
+checkpoint("Rqc", path= "/home/ignacio/Dropbox/materias de grado/Bioinformática/fastq_files_qc/", {
+  folder <-  "/home/ignacio/Dropbox/materias de grado/Bioinformática/fastq_files_qc/"
+  files <- c("filtered_and_trimmed.fastq")
+  rqcResultSet2 <- rqcQA(files, pair=c(1,1), workers=1)
+}, keep="rqcResultSet")
+
+rqcCycleGCPlot(rqcResultSet)
+rqcCycleQualityBoxPlot(rqcResultSet)
+```
