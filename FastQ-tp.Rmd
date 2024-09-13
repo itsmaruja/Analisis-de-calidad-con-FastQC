@@ -51,18 +51,71 @@ setwd(a)
 
 2. Crear el objeto: 
 
+```{r fig.height=5, fig.width=12}
+# Establece el directorio de trabajo
+setwd("fastqfiles")
+
+# Lista todos los archivos .fastq en el directorio
+files <- list.files(pattern = "\\.fastq$", full.names = TRUE)
+
+# Imprime los archivos para verificar
+print(files)
+
+# Procesa cada archivo usando rqcQA
+rqcResults <- lapply(files, function(file) {
+  print(paste("Procesando archivo:", file))
+  
+  # Ejecuta rqcQA para el archivo actual
+  result <- rqcQA(file, pair=c(1,1), workers=1)
+  
+  # Devuelve el resultado
+  return(result)
+})
+
+# Graficar resultados para los primeros 3 archivos
+rqcCycleGCPlot(rqcResults[1:3])
+
+
+rqcCycleGCPlot(rqcResults[4:6])
+
+
+rqcCycleGCPlot(rqcResults[7:8])
+
+rqcCycleGCPlot(rqcResults[9:10])
+# Ajustar tamaño del gráfico del boxplot
+options(repr.plot.width=40, repr.plot.height=40)  # Ajusta el tamaño según sea necesario
+
+# Graficar boxplots
+rqcCycleQualityBoxPlot(rqcResults[1:3])
+rqcCycleQualityBoxPlot(rqcResults[4:6])
+rqcCycleQualityBoxPlot(rqcResults[7:8])
+rqcCycleQualityBoxPlot(rqcResults[9:10])
+                    
+                       
+
+# Si quieres guardar los resultados, puedes hacerlo en un archivo RData
+save(rqcResults, file = "rqcResults.RData")
+
+```
+
+#solo printea dos graficos, arreglado arriba
 ```{r}
 #setwd("fastqfiles")
-setwd(a)
+#setwd(a)
 
-checkpoint("Rqc", path= a,{
-  files <- c( "f1.fastq", "f2.fastq", "f3.fastq", "f4.fastq", "f5.fastq", "f6.fastq", "f7.fastq", "f8.fastq", "f9.fastq", "f10.fastq")
-  rqcResultSet <- rqcQA(files, pair=c(1,1), workers=1)
-}, keep="rqcResultSet")
+#checkpoint("Rqc", path= a,{
+#  files <- c( "f1.fastq", "f2.fastq", "f3.fastq", "f4.fastq", "f5.fastq", "f6.fastq", "f7.fastq", "f8.fastq", "f9.fastq", #"f10.fastq")
+#  print(files)
+#  rqcResultSet <- rqcQA(files, pair=c(1,1), workers=1)
+#}, keep="rqcResultSet")
+
+#chequeos
+#summary(rqcResultSet)
+#names(rqcResultSet)
 
 
-rqcCycleGCPlot(rqcResultSet)
-rqcCycleQualityBoxPlot(rqcResultSet)
+#rqcCycleGCPlot(rqcResultSet)
+#rqcCycleQualityBoxPlot(rqcResultSet)
 ```
 
 3. Reporte html: 
@@ -75,57 +128,79 @@ browseURL(reportFile)
 4. Distribución de archivos de calidad media por lectura
 
 ```{r, echo=FALSE}
-rqcReadQualityBoxPlot(rqcResultSet)
+rqcReadQualityBoxPlot(rqcResults[1:3])
+rqcReadQualityBoxPlot(rqcResults[4:6])
+rqcReadQualityBoxPlot(rqcResults[7:8])
+rqcReadQualityBoxPlot(rqcResults[9:10])
 ```
 
 5. 
 
 
 ```{r}
-rqcReadQualityPlot(rqcResultSet)
+rqcReadQualityPlot(rqcResults[1:3])
+rqcReadQualityPlot(rqcResults[4:6])
+rqcReadQualityPlot(rqcResults[7:8])
+rqcReadQualityPlot(rqcResults[9:10])
+rqcReadQualityPlot(rqcResults)
+
 ```
 
 6. 
 
-```{r, echo=FALSE}
-rqcReadFrequencyPlot(rqcResultSet)
+```{r echo=FALSE, fig.height=12, fig.width=12}
+rqcReadFrequencyPlot(rqcResults)
 ```
 7. 
 
 ```{r}
-rqcReadWidthPlot(rqcResultSet)
+rqcReadWidthPlot(rqcResults[1:3])
+rqcReadWidthPlot(rqcResults[4:6])
+rqcReadWidthPlot(rqcResults[7:8])
+rqcReadWidthPlot(rqcResults[9:10])
 ```
 
 
 9. 
 
-```{r}
-rqcCycleGCPlot(rqcResultSet)
+```{r fig.height=5, fig.width=10}
+rqcCycleGCPlot(rqcResults[1:3])
+rqcCycleGCPlot(rqcResults[4:6])
+rqcCycleGCPlot(rqcResults[7:8])
+rqcCycleGCPlot(rqcResults[9:10])
 ```
 
 10. 
 
-```{r}
-rqcCycleQualityPlot(rqcResultSet)
+```{r fig.height=12}
+rqcCycleQualityPlot(rqcResults[1:5])
+rqcCycleQualityPlot(rqcResults[6:10])
 ```
 
 
 12. 
 
 ```{r}
-rqcCycleQualityBoxPlot(rqcResultSet)
+rqcCycleQualityBoxPlot(rqcResults[1:2])
+rqcCycleQualityBoxPlot(rqcResults[3:4])
+rqcCycleQualityBoxPlot(rqcResults[5:6])
+rqcCycleQualityBoxPlot(rqcResults[7:8])
+rqcCycleQualityBoxPlot(rqcResults[9:10])
 ```
 
 13. 
 
 ```{r , echo=FALSE}
-rqcCycleBaseCallsPlot(rqcResultSet)
+rqcCycleBaseCallsPlot(rqcResults[1:3])
+rqcCycleBaseCallsPlot(rqcResults[4:6])
+rqcCycleBaseCallsPlot(rqcResults[7:8])
+rqcCycleBaseCallsPlot(rqcResults[9:10])
 ```
 
 14. Visualización de los nucleótidos
 
 ```{r}
-#b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f1.fastq"
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f1.fastq"
 
 #b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f1.fastq"
 
