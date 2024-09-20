@@ -4,13 +4,17 @@ title: "Fastq QC"
 output: html_document
 date: "2023-08-24"       
 ---
-
+```{r, include = FALSE}
+##Como no quieroque se vea
 ## Instalación y carga de paquetes:
-=======
-## Instalación y carga de paquetes:
->>>>>>> 2508912dbc7f3635c5ff28f7e9b9874b92c27ffd
 
-```{r}
+#Instalación y carga de paquetes:
+#>>>>>>> 2508912dbc7f3635c5ff28f7e9b9874b92c27ffd
+```
+
+
+
+```{r, include = FALSE}
 if (!require("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 
@@ -29,29 +33,37 @@ library(Rqc)
 ```
 
 
+```{r, include = FALSE}
+###COSAS DE NACHO
 ## Tutoriales de referencia: 
 
-https://www.bioconductor.org/packages/devel/bioc/vignettes/Rqc/inst/doc/Rqc.html
+#https://www.bioconductor.org/packages/devel/bioc/vignettes/Rqc/inst/doc/Rqc.html
 
-http://bioconductor.org/packages/devel/bioc/vignettes/ShortRead/inst/doc/Overview.pdf
+#http://bioconductor.org/packages/devel/bioc/vignettes/ShortRead/inst/doc/Overview.pdf
 
 
 ## Seteo del directorio de trabajo y descarga de archivos fastq:
+```
+
 
 1. Descarga:
 
 
-```{r}
-#a="C://Users//valen//OneDrive//Documents//FACU//Año 2//bioinformatica//Analisis-de-calidad-con-FastQC//fastqfiles"
+```{r, include = FALSE}
+### RUTAS DE ACCESO
+a="C://Users//valen//OneDrive//Documents//FACU//Año 2//bioinformatica//Analisis-de-calidad-con-FastQC//fastqfiles"
 
 #a="C://Users//user//OneDrive//Escritorio//Bioinfo//tp fastqc//archivos fatsq"
 
 setwd(a)
 ```
 
+
+##Porcentages de "GC" de cada fastq
+
 2. Crear el objeto: 
 
-```{r fig.height=5, fig.width=12}
+```{r  echo = FALSE, fig.height=5, fig.width=12}
 # Establece el directorio de trabajo
 setwd("fastqfiles")
 
@@ -82,6 +94,16 @@ rqcCycleGCPlot(rqcResults[4:6])
 rqcCycleGCPlot(rqcResults[7:8])
 
 rqcCycleGCPlot(rqcResults[9:10])
+                       
+
+# Si quieres guardar los resultados, puedes hacerlo en un archivo RData
+save(rqcResults, file = "rqcResults.RData")
+
+```
+
+###Solo se ven irregularidades en el Fastq 7, el cual no tiene variación en su porcentaje de Guanina y Citosina entre el ciclo 91 y aproximadamente el 145. 
+```{r echo = FALSE, fig.height=5, fig.width=12}
+
 # Ajustar tamaño del gráfico del boxplot
 options(repr.plot.width=40, repr.plot.height=40)  # Ajusta el tamaño según sea necesario
 
@@ -91,15 +113,11 @@ rqcCycleQualityBoxPlot(rqcResults[4:6])
 rqcCycleQualityBoxPlot(rqcResults[7:8])
 rqcCycleQualityBoxPlot(rqcResults[9:10])
                     
-                       
-
-# Si quieres guardar los resultados, puedes hacerlo en un archivo RData
-save(rqcResults, file = "rqcResults.RData")
-
 ```
 
+
+```{r, include = FALSE}
 #solo printea dos graficos, arreglado arriba
-```{r}
 #setwd("fastqfiles")
 #setwd(a)
 
@@ -118,11 +136,15 @@ save(rqcResults, file = "rqcResults.RData")
 #rqcCycleQualityBoxPlot(rqcResultSet)
 ```
 
+
+
 3. Reporte html: 
 
-```{r}
-reportFile <- rqcReport(rqcResultSet)
-browseURL(reportFile)
+```{r, include = FALSE}
+#solo printea dos ¿? 
+#CREO QUE ES EL DE NACHO NO SE
+#reportFile <- rqcReport(rqcResultSet)
+#browseURL(reportFile)
 ```
 
 4. Distribución de archivos de calidad media por lectura
@@ -137,7 +159,7 @@ rqcReadQualityBoxPlot(rqcResults[9:10])
 5. 
 
 
-```{r}
+```{r, echo = FALSE}
 rqcReadQualityPlot(rqcResults[1:3])
 rqcReadQualityPlot(rqcResults[4:6])
 rqcReadQualityPlot(rqcResults[7:8])
@@ -153,7 +175,7 @@ rqcReadFrequencyPlot(rqcResults)
 ```
 7. 
 
-```{r}
+```{r, echo = FALSE}
 rqcReadWidthPlot(rqcResults[1:3])
 rqcReadWidthPlot(rqcResults[4:6])
 rqcReadWidthPlot(rqcResults[7:8])
@@ -163,7 +185,7 @@ rqcReadWidthPlot(rqcResults[9:10])
 
 9. 
 
-```{r fig.height=5, fig.width=10}
+```{r echo = FALSE, fig.height=5, fig.width=10}
 rqcCycleGCPlot(rqcResults[1:3])
 rqcCycleGCPlot(rqcResults[4:6])
 rqcCycleGCPlot(rqcResults[7:8])
@@ -172,7 +194,7 @@ rqcCycleGCPlot(rqcResults[9:10])
 
 10. 
 
-```{r fig.height=12}
+```{r echo = FALSE, fig.height=12}
 rqcCycleQualityPlot(rqcResults[1:5])
 rqcCycleQualityPlot(rqcResults[6:10])
 ```
@@ -180,7 +202,7 @@ rqcCycleQualityPlot(rqcResults[6:10])
 
 12. 
 
-```{r}
+```{r, echo = FALSE}
 rqcCycleQualityBoxPlot(rqcResults[1:2])
 rqcCycleQualityBoxPlot(rqcResults[3:4])
 rqcCycleQualityBoxPlot(rqcResults[5:6])
@@ -199,10 +221,10 @@ rqcCycleBaseCallsPlot(rqcResults[9:10])
 
 14. Visualización de los nucleótidos
 
-```{r}
-b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f1.fastq"
+```{r, echo = FALSE}
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f2.fastq"
 
-#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f1.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f2.fastq"
 
 sampler <- readFastq(b)
 
@@ -211,7 +233,7 @@ head(sread(sampler), 3)
 
 14. Visualización de la calidad de los nucleótidos
 
-```{r}
+```{r, echo = FALSE}
 
 sampler <- readFastq(b)
 
@@ -221,7 +243,7 @@ head(quality(sampler), 3)
 
 15. Codificación de los nucleótidos
 
-```{r}
+```{r, echo = FALSE}
 encoding(quality(sampler))
 ```
 
@@ -245,14 +267,14 @@ hist(width(sampler))
 countFastq(b)
 ```
 
-```{r}
+```{r, echo = FALSE}
 #calculates, for each read, the sum of the encoded nucleotide probabilities.
 
 hist(alphabetScore(sampler))
 
 ```
 
-```{r}
+```{r, echo = FALSE}
 # vamos a suponer que queremos quitar los read menores a 4000 de calidad
 
 table(alphabetScore(sampler)<4000)
@@ -270,18 +292,19 @@ length(sampler)
 length(removed)
 
 ```
+ERROR TRIMEA TODO EL FASTQ
 
-
-```{r}
-#trim trailing nucleotides if 4 nucleotides fall below the quality
+```{r, echo = FALSE}
+#trim trailing nucleotides if 1 nucleotides fall below the quality
 #encoded by "5". If successive=FALSE, the 5'th failing nucleotide and 
 #all subseqent nucleotides are trimmed. If successive=TRUE, failing
 #nucleotides must occur successively; the sequence is trimmed from the
 #first of the successive failing nucleotides.
-
-fq2<-trimTails(sampler,4,"5", successive=TRUE)
-fq2
+length(sampler)
+fq2<-trimTails(sampler,5,"5", successive=TRUE)
+length(fq2)
 hist(width(fq2))
+
 ```
 ```{r}
 # vamos a quitar el primer "TTCCA":
@@ -304,14 +327,15 @@ head(sread(fq4), 6)
 ```
 
 
-```
 
-```{r}
+
+```{r, echo = FALSE}
 # vamos a trimear los ultimos 20 pares de bases 
 # de todos los reads de sampler: 
 
 seqs <- sread(sampler)
 trimmed_seqs <- narrow(seqs, end = width(seqs) - 20)
+
 
 # creamos un nuevo objeto ShortReadQ con las secuencias trimeadas
 trimmed_sampler <- ShortReadQ(
@@ -319,6 +343,7 @@ trimmed_sampler <- ShortReadQ(
   quality = narrow(quality(sampler), end = width(quality(sampler)) - 20),
   id = id(sampler)
 )
+
 
 boxplot(as(quality(trimmed_sampler), "matrix"), outline = FALSE, main="Quality Scores across all reads after trimming",
         xlab="Position in Read", ylab="Quality Score")
@@ -331,28 +356,41 @@ boxplot(as(quality(sampler), "matrix"), outline = FALSE, main="Quality Scores ac
 
 
 
-```{r}
+```{r, echo = FALSE}
 fq3<-trimEnds(sampler, "A")
 fq3
 ```
 
 
 ```{r , echo=FALSE}
-writeFastq(fq2, "filtered_and_trimmed.fastq")
+writeFastq(fq2, "filtered_and_trimmedf2.fastq")
 ```
 
 
 ```{r , echo=FALSE}
-#c="C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\"
-#c = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\"
+c="C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC"
+#c = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\"
+# Establece el directorio de trabajo
+setwd(c)
 
-checkpoint("Rqc", path= c, {
-  folder <-  a
-  files <- c("filtered_and_trimmed.fastq")
-  rqcResultSet2 <- rqcQA(files, pair=c(1,1), workers=1)
-}, keep="rqcResultSet")
+# Lista todos los archivos .fastq filtrados en el directorio
+files <- list.files(pattern = "filtered_and_trimmedf[0-9]+\\.fastq$", full.names = TRUE)
 
-rqcCycleGCPlot(rqcResultSet)
-rqcCycleQualityBoxPlot(rqcResultSet)
+# Procesa cada archivo usando rqcQA
+rqcResultsfiltered <- lapply(files, function(file) {
+  print(paste("Procesando archivo:", file))
+  
+  # Ejecuta rqcQA para el archivo actual
+  #result <- rqcQA(file, pair=c(1,1), workers=1)
+  
+  # Devuelve el resultado
+  #return(result)
+
+})
+
+
+rqcCycleGCPlot(rqcResultsfiltered)
+rqcCycleQualityBoxPlot(rqcResultsfiltered)
+
 
 ```
