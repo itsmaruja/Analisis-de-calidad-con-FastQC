@@ -59,7 +59,7 @@ setwd(a)
 ```
 
 
-##Porcentages de "GC" de cada fastq
+## Gráficos indicando los porcentajes de "GC" de cada archivo FastQ:
 
 2. Crear el objeto: 
 
@@ -101,7 +101,10 @@ save(rqcResults, file = "rqcResults.RData")
 
 ```
 
-###Solo se ven irregularidades en el Fastq 7, el cual no tiene variación en su porcentaje de Guanina y Citosina entre el ciclo 91 y aproximadamente el 145. 
+## Observaciones:
+
+### En los gráficos indicadores del porcetaje de citosina y guanina solo se pueden observar irregularidades en el archivo de la muestra número 7. Se observa que no hay variación en su porcentaje de Guanina y Citosina entre el ciclo 91 y aproximadamente el 145, este permanece fijo en 50% mostrandose como una línea horizontal en el gráfico.
+
 ```{r echo = FALSE, fig.height=5, fig.width=12}
 
 # Ajustar tamaño del gráfico del boxplot
@@ -114,6 +117,15 @@ rqcCycleQualityBoxPlot(rqcResults[7:8])
 rqcCycleQualityBoxPlot(rqcResults[9:10])
                     
 ```
+## Observaciones:
+
+### Los gráficos pertenecientes a los archivos f1, f2, f3, f4, f9 y f10 no presentan anormalidades. Los gráficos indicados estan en norma con lo esperado de una lectura de calidad siguiendo el protocolo de Illumina. 
+
+### El archivo f5 no presenta lecturas después del ciclo 151. No cumple con la misma cantidad de ciclos que el resto de los archivos.
+
+### El archivo f7 muestra una caída brusca en la calidad de los reads entre los ciclos 91 y 151 aproximadamente. En el intervalo mencionado la calidad cae a 0%. El resto de los reads del archivo se registran con normalidad. 
+
+### Los gráficos pertenecientes a los archivos f6 y f8 presentan una calidad mas baja que la esperada. La calidad de los reads del archivo f6 se debe a una mayor variabilidad de los datos fuera del rango intercuartílico. Igualmente se resalta que la mediana de la calidad se encuentra en valores normales. El archivo f8 presenta una calidad extremadamente baja. Tiene una calidad aproximada del 10%. 
 
 
 ```{r, include = FALSE}
@@ -156,6 +168,12 @@ rqcReadQualityBoxPlot(rqcResults[7:8])
 rqcReadQualityBoxPlot(rqcResults[9:10])
 ```
 
+## Observaciones:
+
+### Se puede observar lo mismo que lo detallado en los gráficos previos.
+
+### Será importante en los siguientes análisis mirar detalladamente las muestras f6, f7 y f8.
+
 5. 
 
 
@@ -168,11 +186,22 @@ rqcReadQualityPlot(rqcResults)
 
 ```
 
+## Observaciones:
+
+### En línea con lo analizado previamente, los archivos f6, f7 y f8 presentan irregularidades en la calidad de los reads.
+
+### Los tres archivos presentan caídas anormales en la calidad de los reads.
+
 6. 
 
 ```{r echo=FALSE, fig.height=12, fig.width=12}
 rqcReadFrequencyPlot(rqcResults)
 ```
+
+## Observaciones:
+
+### Se puede notar una anormalidad en la curva perteneciente al archivo f5. Su curva tiene un comportamiento que se distingue del comportamiento de las otras curvas graficadas. Se estima que se debe a la longitud acortada de la secuencia. 
+
 7. 
 
 ```{r, echo = FALSE}
@@ -182,6 +211,11 @@ rqcReadWidthPlot(rqcResults[7:8])
 rqcReadWidthPlot(rqcResults[9:10])
 ```
 
+## Observaciones:
+
+### Los archivos f1, f2, f4, f6, f7, f8 y f9 presentan la uniformidad esperada en las longitudes de los reads.
+
+### Los archivos f3, f5 y f10 no muestran la uniformidad esperada para una secuenciación de este tipo. Se sospechan posibles errores en el proceso de secuenciación o un problema en la preparación de las bibliotecas genómicas. 
 
 9. 
 
@@ -192,6 +226,8 @@ rqcCycleGCPlot(rqcResults[7:8])
 rqcCycleGCPlot(rqcResults[9:10])
 ```
 
+ESTE YA ESTA ARRIBA DE TODOOOOOO CHEQUEAR !!!!!!!!!
+
 10. 
 
 ```{r echo = FALSE, fig.height=12}
@@ -199,6 +235,17 @@ rqcCycleQualityPlot(rqcResults[1:5])
 rqcCycleQualityPlot(rqcResults[6:10])
 ```
 
+##Observaciones:
+
+### Los archivos f1, f3, f4 y f9 se presentan con normalidad en base a los parámetros esperados. 
+
+### En el archivo f2 se observa una leve irregularidad en el comienzo de la secuencia, se recomienda evaluar la presencia de un primer o un error en la secuenciación.
+
+### Nuevamente se observa que el archivo f5 es mas corto que el resto de las secuencias. 
+
+### Se vuelve a observar una calidad del 0% en la sección previamente analizada del archivo f7.
+
+### Los archivos f6 y f8 presentan menor calidad en la totalidad de su secuencia que el resto de los archivos analizados.
 
 12. 
 
@@ -218,6 +265,12 @@ rqcCycleBaseCallsPlot(rqcResults[4:6])
 rqcCycleBaseCallsPlot(rqcResults[7:8])
 rqcCycleBaseCallsPlot(rqcResults[9:10])
 ```
+
+## Observaciones:
+
+### Se puede notar en el gráfico perteneciente al archivo f7 lo que se detectó previamente. Presenta una irregularidad entre los nucleótidos 91 y 151. Se confirma que la totalidad de bases ubicadas en esa sección son guaninas. Se descarta la psoibilidad de que esto sea de causa natural ya que no es biologicamente normal y es un evento aislado, no se encuentran similitudes con otras secuencias analizadas. Este tramo poli-G se puede deber a un posible fallo en la secuenciación, principalmente un fallo en la amplificación o un error en el proceso de secuenciación. 
+
+### Analizando la calidad de la secuenciación del archivo f7 se confirma que la calidad en el tramo 91-151 es del 0%, por lo tanto se recomienda recortar esta sección del archivo para evitar complicaciones. 
 
 14. Visualización de los nucleótidos
 
