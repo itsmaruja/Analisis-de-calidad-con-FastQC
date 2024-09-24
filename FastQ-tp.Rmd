@@ -218,15 +218,15 @@ rqcReadWidthPlot(rqcResults[9:10])
 ### Los archivos f3, f5 y f10 no muestran la uniformidad esperada para una secuenciación de este tipo. Se sospechan posibles errores en el proceso de secuenciación o un problema en la preparación de las bibliotecas genómicas. 
 
 9. 
+ESTE YA ESTA ARRIBA DE TODOOOOOO CHEQUEAR !!!!!!!!!
 
 ```{r echo = FALSE, fig.height=5, fig.width=10}
-rqcCycleGCPlot(rqcResults[1:3])
-rqcCycleGCPlot(rqcResults[4:6])
-rqcCycleGCPlot(rqcResults[7:8])
-rqcCycleGCPlot(rqcResults[9:10])
+#rqcCycleGCPlot(rqcResults[1:3])
+#rqcCycleGCPlot(rqcResults[4:6])
+#rqcCycleGCPlot(rqcResults[7:8])
+#rqcCycleGCPlot(rqcResults[9:10])
 ```
 
-ESTE YA ESTA ARRIBA DE TODOOOOOO CHEQUEAR !!!!!!!!!
 
 10. 
 
@@ -248,13 +248,14 @@ rqcCycleQualityPlot(rqcResults[6:10])
 ### Los archivos f6 y f8 presentan menor calidad en la totalidad de su secuencia que el resto de los archivos analizados.
 
 12. 
+ESTE YA ESTA ARRIBA DE TODO
 
 ```{r, echo = FALSE}
-rqcCycleQualityBoxPlot(rqcResults[1:2])
-rqcCycleQualityBoxPlot(rqcResults[3:4])
-rqcCycleQualityBoxPlot(rqcResults[5:6])
-rqcCycleQualityBoxPlot(rqcResults[7:8])
-rqcCycleQualityBoxPlot(rqcResults[9:10])
+#rqcCycleQualityBoxPlot(rqcResults[1:2])
+#rqcCycleQualityBoxPlot(rqcResults[3:4])
+#rqcCycleQualityBoxPlot(rqcResults[5:6])
+#rqcCycleQualityBoxPlot(rqcResults[7:8])
+#rqcCycleQualityBoxPlot(rqcResults[9:10])
 ```
 
 13. 
@@ -272,9 +273,8 @@ rqcCycleBaseCallsPlot(rqcResults[9:10])
 
 ### Analizando la calidad de la secuenciación del archivo f7 se confirma que la calidad en el tramo 91-151 es del 0%, por lo tanto se recomienda recortar esta sección del archivo para evitar complicaciones. 
 
-14. Visualización de los nucleótidos
-
-```{r, echo = FALSE}
+DEFINO VARIABLE
+```{r}
 #VALEN
 #MARU
 
@@ -283,119 +283,425 @@ rqcCycleBaseCallsPlot(rqcResults[9:10])
 #b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f1.fastq"
 #b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f1.fastq"
 
-#F1
+#F2
 
 #b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f2.fastq"
 #b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f2.fastq"
 
-#F1
+#F3
 
 #b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f3.fastq"
 #b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f3.fastq"
 
-#F1
+#F4
 
 #b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f4.fastq"
 #b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f4.fastq"
 
-#F1
+#F5
 
 #b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f5.fastq"
 #b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f5.fastq"
 
-#F1
+#F6
 
 #b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f6.fastq"
 #b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f6.fastq"
 
-#F1
+#F7
 
 #b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f7.fastq"
 #b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f7.fastq"
 
-#F1
+#F8
 
 #b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f8.fastq"
 #b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f8.fastq"
 
-#F1
+#F9
 
 #b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f9.fastq"
 #b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f9.fastq"
 
-#F1
+#F10
 
 #b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f10.fastq"
 #b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f10.fastq"
 
-sampler <- readFastq(b)
+#sampler <- readFastq(b)
 
-head(sread(sampler), 3)
 ```
 
+CODIGOS QUE NO USAMOS
+
 14. Visualización de la calidad de los nucleótidos
+NO LO USAMOS PORQUE SE VE TODO EN LOS GRAFICOS
+
 
 ```{r, echo = FALSE}
 
-sampler <- readFastq(b)
+#sampler <- readFastq(b)
 
-head(quality(sampler), 3)
+#head(quality(sampler), 3)
 ```
 
 
 15. Codificación de los nucleótidos
+NO LO USAMOS PORQUE SE VE TODO EN LOS GRAFICOS
+
 
 ```{r, echo = FALSE}
-encoding(quality(sampler))
+#encoding(quality(sampler))
 ```
 
+ARRANCAMOS ANALISIS INDIVIDUALES
+
 16. Cantidad de reads y de nucleótidos
+LO USO PARA EL 5 QUE ES MAS CORTO, Y LOS COMPARO CON EL 3 QUE PARECE NORMAL
 
 ```{r , echo=FALSE}
+#F5
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f5.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f5.fastq"
+
+countFastq(b)
+
+#F1
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f1.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f1.fastq"
+
 countFastq(b)
 ```
 
+##Observaciones:
+
+###Efectivamente se ve que el fastq 5 tiene menos lectura de nucleotidos que el 1, que parecia tener una cantidad de bases esperada o parecida a la de el resto de fastq, el fastq 5 tiene 18.170.585 nucleotidos mientras que el fastq 1 que elejimos para la comparacion tiene 37.106.678, mas del doble de bases.  
 
 16. Tamaño de los reads
 
 ```{r , echo=FALSE}
-hist(width(sampler))
+
+#F1
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f1.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f1.fastq"
+
+sampler1 <- readFastq(b)
+hist(width(sampler1))
+
+#F2
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f2.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f2.fastq"
+
+sampler2 <- readFastq(b)
+hist(width(sampler2))
+
+#F3
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f3.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f3.fastq"
+
+sampler3 <- readFastq(b)
+hist(width(sampler3))
+
+#F4
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f4.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f4.fastq"
+
+sampler4 <- readFastq(b)
+hist(width(sampler4))
+
+#F5
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f5.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f5.fastq"
+
+sampler5 <- readFastq(b)
+hist(width(sampler5))
+
+#F6
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f6.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f6.fastq"
+
+sampler6 <- readFastq(b)
+hist(width(sampler6))
+
+#F7
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f7.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f7.fastq"
+
+sampler7 <- readFastq(b)
+hist(width(sampler7))
+
+#F8
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f8.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f8.fastq"
+
+sampler8 <- readFastq(b)
+hist(width(sampler8))
+
+#F9
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f9.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f9.fastq"
+
+sampler9 <- readFastq(b)
+hist(width(sampler9))
+
+#F10
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f10.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f10.fastq"
+
+sampler10 <- readFastq(b)
+hist(width(sampler10))
+
 ```
+##Observaciones
 
-17. Filtrado y trimeo
+###Los fastq 1, 2, 6, 7, 8, 9 y 10 muestran valores normales, estos tienen frecuencias altas para lecturas de largo en el rango 300-350
 
-```{r , echo=FALSE}
+###Por otro lado los fastq 3 y 10 tienen ademas de frecuencia alta(pero no tanto como los mencionados previamente) para las lecturas de largo mayor a 300, tambien tienen lecturas con frecuencia media de largo de lectura muy corto(menor a 250), analizando las frecuencias se puede ver que al rededor de un tercio de las lecturas tienen una lectura considerada corta.
 
-countFastq(b)
-```
 
 ```{r, echo = FALSE}
 #calculates, for each read, the sum of the encoded nucleotide probabilities.
 
-hist(alphabetScore(sampler))
+#F1
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f1.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f1.fastq"
+
+sampler1 <- readFastq(b)
+hist(alphabetScore(sampler1))
+
+#F2
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f2.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f2.fastq"
+
+sampler2 <- readFastq(b)
+hist(alphabetScore(sampler2))
+
+#F3
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f3.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f3.fastq"
+
+sampler3 <- readFastq(b)
+hist(alphabetScore(sampler3))
+
+#F4
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f4.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f4.fastq"
+
+sampler4 <- readFastq(b)
+hist(alphabetScore(sampler4))
+
+#F5
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f5.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f5.fastq"
+
+sampler5 <- readFastq(b)
+hist(alphabetScore(sampler5))
+
+#F6
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f6.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f6.fastq"
+
+sampler6 <- readFastq(b)
+hist(alphabetScore(sampler6))
+
+#F7
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f7.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f7.fastq"
+
+sampler7 <- readFastq(b)
+hist(alphabetScore(sampler7))
+
+#F8
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f8.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f8.fastq"
+
+sampler8 <- readFastq(b)
+hist(alphabetScore(sampler8))
+
+#F9
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f9.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f9.fastq"
+
+sampler9 <- readFastq(b)
+hist(alphabetScore(sampler9))
+
+#F10
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f10.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f10.fastq"
+
+sampler10 <- readFastq(b)
+hist(alphabetScore(sampler10))
+
+
 
 ```
+##Observaciones:
+
+###Los fastq 1, 2, 3, 4, 7, 9 y 10 muestran valores esperados, alta calidad de lectura en la mayoria de las lecturas. 
+
+###El fastq 5 muestra menos calidad de lectura que los otros fastq pero mantiene una estructura estandar, aumento exponencial de la frecuencia en base a la calidad, se asume que sus valores son menores debido a que es un archivo de mucho menos tamaño y lecturas
+
+###Los fastq 6 y 8, por otro lado, tienen una considerable cantidad de lecturas de alta calidad, pero tienen al rededor de la misma frecuencia de lecturas de calidad bajas.
+
+ARRANCAMOS TRIMEOS 
+
+TRIMEO FASTQ 6 Y 8
 
 ```{r, echo = FALSE}
+#F6
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f6.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f6.fastq"
+
+sampler6 <- readFastq(b)
+
 # vamos a suponer que queremos quitar los read menores a 4000 de calidad
 
-table(alphabetScore(sampler)<4000)
+table(alphabetScore(sampler6)<4000)
 # tenemos 690 read de muy poca calidad y los vamos a quitar de nuestro 
 # fastq
 
-removed=(sampler)[alphabetScore(sampler)<4000]
+removed6=(sampler6)[alphabetScore(sampler6)<4000]
 
-sampler=(sampler)[alphabetScore(sampler)>4000]
+sampler6fixed=(sampler6)[alphabetScore(sampler6)>4000]
 
-hist(alphabetScore(sampler))
-hist(alphabetScore(removed))
+hist(alphabetScore(sampler6))
+hist(alphabetScore(sampler6fixed))
+hist(alphabetScore(removed6))
 
-length(sampler)
-length(removed)
+length(sampler6fixed)
+length(removed6)
+#F8
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f8.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f8.fastq"
+
+sampler8 <- readFastq(b)
+
+# vamos a suponer que queremos quitar los read menores a 4000 de calidad
+
+table(alphabetScore(sampler8)<4000)
+# tenemos 690 read de muy poca calidad y los vamos a quitar de nuestro 
+# fastq
+
+removed8=(sampler8)[alphabetScore(sampler8)<4000]
+
+sampler8fixed=(sampler8)[alphabetScore(sampler8)>4000]
+
+hist(alphabetScore(sampler8))
+hist(alphabetScore(sampler8fixed))
+hist(alphabetScore(removed8))
+
+length(sampler8)
+length(removed8)
+
+
+
+```
+###Ya que en los histogramas previos vemos una baja calidad de muchas lecturas de los fastq 6 y 8, se les trimea a estos archivos las lecturas con calidad menos a 4000.
+
+##Observaciones
+
+###Se puede observar que en el caso del fastq 6, una vez trimeado, contiene una muy baja cantidad de lecturas, ya que en el eje de la frecuencia este llega hasta el valor 800, en vez del estandar 4000. La cantidad de lecturas que no se extrayeron son muy pocas haciendo el nuevo archivo irrelevante. Tambien vale aclarar que a diferencia del resto, no se ve un crecimiento exponencial en la frecuencia en relacion a la calidad en el nuevo fastq, se ven picos de valores de frecuencia altos en una calidadde 6400 y 10500 (numeros aproximados)
+
+
+###En el fastq 8 por otro lado, luego del trimeo se ve que se mantienen muchas lecturas, no todas pero una cantidad considerable, y la mayoria de estas tienen una alta calidad, y siguen lo que parece una funcion exponencial que aumenta al aumentar la calidad. Esto indica que la mayoria de laslecturas, a pesar de ser menos que antes y menos que los archivos no recortados, tienen alta calidad y pueden ser relevantes.
+
+TRIMEO FASTQ2
+
+```{r, echo = FALSE}
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f2.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f2.fastq"
+
+sampler2 <- readFastq(b)
+head(sread(sampler2), 3)
+
+```
+##Observaciones
+
+###Se ouede ver que el fastq2 sigue teniendo el primer ya que las secuencias arrancan todas con AATTCC
+
+
+TRIMEO FASTQ2
+```{r}
+# vamos a quitar el primer "AATTCCGGTT":
+#before
+head(sread(sampler2), 6)
+
+report <- trimLRPatterns(Lpattern = "AATTCCGGTT", subject = sampler, max.Rmismatch = 0, ranges = TRUE)
+
+View(as.data.frame(report))
+
+#arreglado
+fq2 <- trimLRPatterns(Lpattern = "AATTCCGGTT", subject = sampler, max.Rmismatch = 0, ranges = TRUE)
+
+#after
+head(sread(fq2),6)
 
 ```
 
-ERROR TRIMEA TODO EL FASTQ
+ARMO FASTQ TRIMEADO
+
+
+TRIMEO DEL FASTQ 7
+
+```{r, echo = FALSE}
+head(sread(sampler), 3)
+```
+```{r, echo = FALSE}
+#F7
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f7.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f7.fastq"
+# Leer el archivo FastQ
+sampler7 <- readFastq(b)
+
+# Analizar la calidad con Rqc
+rqcResult <- rqcQA(sampler7, pair=c(1,1), workers=1)
+
+# Obtener porcentajes de GC por ciclo
+gcContent <- perCycleBase(gcContent(rqcResult))
+
+# Graficar contenido de GC
+rqcCycleGCPlot(gcContent)
+
+# Filtrar ciclos con alto contenido de GC (>50%)
+highGC <- gcContent > 50
+
+# Graficar los ciclos con contenido de GC aceptable
+acceptableGC <- gcContent <= 50
+rqcCycleGCPlot(acceptableGC)
+
+length(sampler7fixed)
+length(removed7)
+
+
+
+```
+
+
 
 ```{r, echo = FALSE}
 #EL SEGUNDO NUMERO CUANTO MAS GRANDE MAS TRIMEA, EL PRIMERO CUANTO MAS CHICO MAS TRIMEA
@@ -406,67 +712,57 @@ ERROR TRIMEA TODO EL FASTQ
 #all subseqent nucleotides are trimmed. If successive=TRUE, failing
 #nucleotides must occur successively; the sequence is trimmed from the
 #first of the successive failing nucleotides.
+#F7
 
-length(sampler)
-fq2<-trimTails(sampler,5,"8", successive=TRUE)
-length(fq2)
-hist(width(fq2))
+#b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f7.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f7.fastq"
 
-```
+#sampler7 <- readFastq(b)
 
-```{r}
-# vamos a quitar el primer "TTCCA":
-#before
-head(sread(sampler), 6)
+#length(sampler7)
 
-report <- trimLRPatterns(Lpattern = "TTCCA", subject = sampler, max.Rmismatch = 0, ranges = TRUE)
+#fq7<-trimTails(sampler,5,"1", successive=TRUE)
+#length(fq7)
 
-View(as.data.frame(report))
-
-#arreglado
-fq4 <- trimLRPatterns(Lpattern = "TTCCA", subject = sampler, max.Rmismatch = 0, ranges = FALSE)
-#sin arreglar
-#fq4<-trimLRPatterns(Lpattern = "TTCCA", subject = sampler, max.Rmismatch = 0, ranges = TRUE) #TIRABA ERROR
-
-
-#after
-head(sread(fq4), 6)
 
 ```
 
 
 
 
+
+
+NO LO USAMOS
 ```{r, echo = FALSE}
 # vamos a trimear los ultimos 20 pares de bases 
 # de todos los reads de sampler: 
 
-seqs <- sread(sampler)
-trimmed_seqs <- narrow(seqs, end = width(seqs) - 20)
+#seqs <- sread(sampler)
+#trimmed_seqs <- narrow(seqs, end = width(seqs) - 20)
 
 
 # creamos un nuevo objeto ShortReadQ con las secuencias trimeadas
-trimmed_sampler <- ShortReadQ(
-  sread = trimmed_seqs,
-  quality = narrow(quality(sampler), end = width(quality(sampler)) - 20),
-  id = id(sampler)
-)
+#trimmed_sampler <- ShortReadQ(
+#  sread = trimmed_seqs,
+#  quality = narrow(quality(sampler), end = width(quality(sampler)) - 20),
+#  id = id(sampler)
+#)
 
 
-boxplot(as(quality(trimmed_sampler), "matrix"), outline = FALSE, main="Quality Scores across all reads after trimming",
-        xlab="Position in Read", ylab="Quality Score")
+#boxplot(as(quality(trimmed_sampler), "matrix"), outline = FALSE, main="Quality Scores across all reads after trimming",
+#        xlab="Position in Read", ylab="Quality Score")
 
-boxplot(as(quality(sampler), "matrix"), outline = FALSE, main="Quality Scores across all reads before trimming",
-        xlab="Position in Read", ylab="Quality Score")
+#boxplot(as(quality(sampler), "matrix"), outline = FALSE, main="Quality Scores across all reads before trimming",
+#        xlab="Position in Read", ylab="Quality Score")
 
 ```
 
 
 
-
+NO LO USAMOS
 ```{r, echo = FALSE}
-fq3<-trimEnds(sampler, "A")
-fq3
+#fq3<-trimEnds(sampler, "A")
+#fq3
 ```
 
 GENERA UN FAST Q DEL TRIMEADO, Y SE AGREGA A LA CARPETA EN LA QUE ESTAS TRABAJANDO, HAY QUE CAMBIAR EL NOMBRE EN BASE A CUAL USAS (SINO TODOS SE VAN A LLAMAR FQ2 QUE ES EL PRIMERO)
