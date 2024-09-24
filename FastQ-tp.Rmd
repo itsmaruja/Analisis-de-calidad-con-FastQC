@@ -275,9 +275,58 @@ rqcCycleBaseCallsPlot(rqcResults[9:10])
 14. Visualización de los nucleótidos
 
 ```{r, echo = FALSE}
-b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f2.fastq"
+#VALEN
+#MARU
 
+#F1
+
+#b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f1.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f1.fastq"
+
+#F1
+
+#b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f2.fastq"
 #b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f2.fastq"
+
+#F1
+
+#b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f3.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f3.fastq"
+
+#F1
+
+#b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f4.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f4.fastq"
+
+#F1
+
+#b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f5.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f5.fastq"
+
+#F1
+
+#b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f6.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f6.fastq"
+
+#F1
+
+#b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f7.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f7.fastq"
+
+#F1
+
+#b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f8.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f8.fastq"
+
+#F1
+
+#b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f9.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f9.fastq"
+
+#F1
+
+#b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f10.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f10.fastq"
 
 sampler <- readFastq(b)
 
@@ -345,82 +394,26 @@ length(sampler)
 length(removed)
 
 ```
-CODIGO DE CHAT GPT PARA REEMPLAZAR EL DE ABAJO, TARDA MIL AÑOS EN CORRER PORQUE HACE UNO POR UNO
-
-```{r}
-# Cargar la biblioteca ShortRead
-library(ShortRead)
-
-# Definir una función para recortar secuencias basadas en calidad
-trim_by_quality <- function(reads, quality_threshold = 20, min_len = 50) {
-  
-  trimmed_reads <- lapply(seq_along(reads), function(i) {
-    # Extraer la secuencia y calidad de la lectura individual
-    seq <- sread(reads)[[i]]
-    qual <- as(quality(reads)[[i]], "numeric")
-    
-    # Encontrar el índice de la primera base con calidad por debajo del umbral
-    low_qual_pos <- which(qual < quality_threshold)
-    
-    # Si existe una base de baja calidad, recortar la secuencia hasta esa posición
-    if (length(low_qual_pos) > 0) {
-      cut_pos <- min(low_qual_pos) - 1  # Índice de corte
-    } else {
-      cut_pos <- length(qual)  # No recortar si no hay bases de baja calidad
-    }
-    
-    # Recortar la secuencia y las calidades
-    if (cut_pos >= min_len) {  # Solo mantener secuencias con longitud >= min_len
-      return(ShortReadQ(sread = DNAStringSet(seq[1:cut_pos]), 
-                        quality = BStringSet(quality(reads)[[i]][1:cut_pos]), 
-                        id = id(reads)[i]))
-    } else {
-      return(NULL)  # Descartar secuencias que sean demasiado cortas
-    }
-  })
-  
-  # Filtrar secuencias nulas
-  trimmed_reads <- trimmed_reads[!sapply(trimmed_reads, is.null)]
-  
-  # Combinar las lecturas recortadas en un solo objeto ShortReadQ
-  trimmed_reads_combined <- do.call(c, trimmed_reads)
-  
-  return(trimmed_reads_combined)
-}
-
-# Aplicar la función de recorte a las secuencias
-fq2 <- trim_by_quality(sampler, quality_threshold = 20, min_len = 50)
-
-# Verificar el número de lecturas después del recorte
-num_reads <- length(fq2)
-print(paste("Número de lecturas en fq2 después del recorte:", num_reads))
-
-# Generar un histograma de las longitudes de las secuencias recortadas
-if (num_reads > 0) {
-  hist(width(fq2), main="Histograma de Longitudes de Secuencias", xlab="Longitud de Secuencias", ylab="Frecuencia")
-} else {
-  print("No hay lecturas en fq2 para crear el histograma.")
-}
-
-
-
-```
-
 
 ERROR TRIMEA TODO EL FASTQ
 
 ```{r, echo = FALSE}
+#EL SEGUNDO NUMERO CUANTO MAS GRANDE MAS TRIMEA, EL PRIMERO CUANTO MAS CHICO MAS TRIMEA
+#EL PRIMERO ES CUANTA BAJA CALIDAD SE BANCA, EL SENGUNDO CUANTAS BASES TRIMEA CADA VEZ
+
 #trim trailing nucleotides if 1 nucleotides fall below the quality
 #encoded by "5". If successive=FALSE, the 5'th failing nucleotide and 
 #all subseqent nucleotides are trimmed. If successive=TRUE, failing
 #nucleotides must occur successively; the sequence is trimmed from the
 #first of the successive failing nucleotides.
+
 length(sampler)
-fq2<-trimTails(sampler,1,"1", successive=TRUE)
+fq2<-trimTails(sampler,5,"8", successive=TRUE)
 length(fq2)
 hist(width(fq2))
 
 ```
+
 ```{r}
 # vamos a quitar el primer "TTCCA":
 #before
@@ -476,7 +469,7 @@ fq3<-trimEnds(sampler, "A")
 fq3
 ```
 
-
+GENERA UN FAST Q DEL TRIMEADO, Y SE AGREGA A LA CARPETA EN LA QUE ESTAS TRABAJANDO, HAY QUE CAMBIAR EL NOMBRE EN BASE A CUAL USAS (SINO TODOS SE VAN A LLAMAR FQ2 QUE ES EL PRIMERO)
 ```{r , echo=FALSE}
 writeFastq(fq2, "filtered_and_trimmedf2.fastq")
 ```
