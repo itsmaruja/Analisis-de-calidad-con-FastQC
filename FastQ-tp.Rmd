@@ -30,6 +30,9 @@ if (!require("ShortRead", quietly = TRUE))
 library(ShortRead)
 library(FastqCleaner)
 library(Rqc)
+
+
+
 ```
 
 
@@ -103,7 +106,7 @@ save(rqcResults, file = "rqcResults.RData")
 
 ## Observaciones:
 
-### En los gráficos indicadores del porcetaje de citosina y guanina solo se pueden observar irregularidades en el archivo de la muestra número 7. Se observa que no hay variación en su porcentaje de Guanina y Citosina entre el ciclo 91 y aproximadamente el 145, este permanece fijo en 50% mostrandose como una línea horizontal en el gráfico.
+### En los gráficos indicadores del porcetaje de citosina y guanina solo se pueden observar irregularidades en el archivo de la muestra número 7. Se observa que no hay variación en su porcentaje de Guanina y Citosina entre el ciclo 91 y aproximadamente el 146, este permanece fijo en 50% mostrandose como una línea horizontal en el gráfico.
 
 ```{r echo = FALSE, fig.height=5, fig.width=12}
 
@@ -567,6 +570,31 @@ hist(alphabetScore(sampler10))
 
 ARRANCAMOS TRIMEOS 
 
+GENERO CARPETA PARA GUARDAR LOS FASTQ TRIMEADOS
+
+```{r}
+c = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\"
+#c = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\"
+
+parent_folder <- c
+
+
+new_folder_name <- "trimmedFastqfiles"
+
+new_folder_path <- file.path(parent_folder, new_folder_name)
+
+if (!file.exists(new_folder_path)) {
+  dir.create(new_folder_path)
+  cat("Carpeta creada con éxito en:", new_folder_path, "\n")
+} else {
+  cat("La carpeta ya existe en:", new_folder_path, "\n")
+}
+
+
+```
+
+
+
 TRIMEO FASTQ 6 Y 8
 
 ```{r, echo = FALSE}
@@ -574,6 +602,8 @@ TRIMEO FASTQ 6 Y 8
 
 b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f6.fastq"
 #b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f6.fastq"
+
+output_file <- file.path(output_folder, "filtered_and_trimmedfq8.fastq")
 
 sampler6 <- readFastq(b)
 
@@ -617,7 +647,12 @@ hist(alphabetScore(removed8))
 length(sampler8)
 length(removed8)
 
-
+if (!file.exists(output_file)) {
+    writeFastq(sampler8fixed, output_file)
+    message("Archivo escrito: ", output_file)
+} else {
+    message("El archivo ya existe: ", output_file)
+}
 
 ```
 ###Ya que en los histogramas previos vemos una baja calidad de muchas lecturas de los fastq 6 y 8, se les trimea a estos archivos las lecturas con calidad menos a 4000.
@@ -629,7 +664,7 @@ length(removed8)
 
 ###En el fastq 8 por otro lado, luego del trimeo se ve que se mantienen muchas lecturas, no todas pero una cantidad considerable, y la mayoria de estas tienen una alta calidad, y siguen lo que parece una funcion exponencial que aumenta al aumentar la calidad. Esto indica que la mayoria de laslecturas, a pesar de ser menos que antes y menos que los archivos no recortados, tienen alta calidad y pueden ser relevantes.
 
-TRIMEO FASTQ2
+PREPARO EL TRIMEO FASTQ2
 
 ```{r, echo = FALSE}
 b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f2.fastq"
@@ -639,63 +674,255 @@ sampler2 <- readFastq(b)
 head(sread(sampler2), 3)
 
 ```
+
 ##Observaciones
 
-###Se ouede ver que el fastq2 sigue teniendo el primer ya que las secuencias arrancan todas con AATTCC
+###Se puede ver que el fastq2 sigue teniendo el primer ya que las secuencias arrancan todas con AATTCCGGTT, este primer se trimmeara, generando un nuevo fastq2 con mayor calidad.
 
 
 TRIMEO FASTQ2
 ```{r}
 # vamos a quitar el primer "AATTCCGGTT":
-#before
+# Ver las primeras 6 secuencias antes de eliminar el primer
 head(sread(sampler2), 6)
 
-report <- trimLRPatterns(Lpattern = "AATTCCGGTT", subject = sampler, max.Rmismatch = 0, ranges = TRUE)
+# Definir el primer a eliminar
+primer_seq <- "AATTCCGGTT"
 
-View(as.data.frame(report))
+# Eliminar el primer de las secuencias en el objeto 'sampler'
+fq2 <- trimLRPatterns(Lpattern = primer_seq, subject = sampler2, max.Rmismatch = 0)
 
-#arreglado
-fq2 <- trimLRPatterns(Lpattern = "AATTCCGGTT", subject = sampler, max.Rmismatch = 0, ranges = TRUE)
+# Guardar las secuencias corregidas en un archivo FASTQ nuevo
+output_folder <- new_folder_path
 
-#after
-head(sread(fq2),6)
+# Combinar la carpeta con el nombre del archivo
+output_file <- file.path(output_folder, "filtered_and_trimmedfq2.fastq")
+
+# Guardar el archivo en la carpeta especificada
+if (!file.exists(output_file)) {
+  # Si el archivo no existe, se escribe
+  writeFastq(fq2, file = output_file)
+  cat("Archivo creado y guardado en:", output_file, "\n")
+} else {
+  # Si el archivo ya existe, se notifica
+  cat("El archivo ya existe en:", output_file, "\n")
+}
+# Verificar las primeras secuencias tras la eliminación del primer
+head(sread(fq2), 6)
+
+```
+###Ya se genero un fastq2 trimmeado y fue agregado a la carpeta que contiene los fastq que se vayan a arreglar.
+
+CHEQUEO QUE LA CALIDAD HAYA MEJORADO
+```{r}
+
+rqcfastq2trimmed <- output_file
+
+resulttrimmed <- rqcQA(rqcfastq2trimmed, pair = c(1,1), workers = 1)
+
+if (!is.null(result)) {
+  cat("Archivo procesado con éxito.\n")
+} else {
+  cat("Hubo un problema procesando el archivo.\n")
+}
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f2.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f2.fastq"
+
+rqcfastq2 <- b
+
+resultoriginal <- rqcQA(rqcfastq2, pair = c(1,1), workers = 1)
+
+if (!is.null(result)) {
+  cat("Archivo procesado con éxito.\n")
+} else {
+  cat("Hubo un problema procesando el archivo.\n")
+}
+
+
+rqcCycleQualityPlot(resultoriginal)
+rqcCycleQualityPlot(resulttrimmed)
+```
+##Observaciones
+
+###El archivo se trimmeo correctamente.
+
+
+CODIGOS DE TRIMEO F7, ambos funcionan en teoria, pero no se ve en el grafico
+
+
+```{r}
+
+b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f7.fastq"
+#b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f7.fastq"
+
+# Leer el archivo FastQ
+sampler7 <- readFastq(b)
+
+# Realizar el análisis de calidad del archivo FASTQ
+rqcfastq7 <- rqcQA(b, pair=c(1,1), workers=1)
+
+# Acceder a la sección 'perCycle' de 'f7.fastq'
+cycleData <- rqcfastq7$f7.fastq@.srlist$perCycle
+
+# Mostrar datos de calidad y baseCall
+cycleQuality <- cycleData$quality
+baseCallData <- cycleData$baseCall
+
+# Mostrar las primeras filas para revisión
+print(head(cycleQuality))  # Datos de calidad
+print(baseCallData)
+# Función para calcular el contenido de GC
+calculateGCContent <- function(baseCallData) {
+    # Contar ocurrencias de G y C
+    gcCounts <- aggregate(count ~ cycle, data = baseCallData[baseCallData$base %in% c("G", "C"), ], sum)
+    totalCounts <- aggregate(count ~ cycle, data = baseCallData, sum)
+    
+    # Combinar los conteos de GC y el total
+    gcContent <- merge(gcCounts, totalCounts, by = "cycle", suffixes = c(".gc", ".total"))
+    
+    # Calcular el porcentaje de GC
+    gcContent$gcPercentage <- (gcContent$count.gc / gcContent$count.total) * 100
+    
+    return(gcContent[, c("cycle", "gcPercentage")])
+}
+
+# Ejecutar la función para calcular el contenido de GC
+gcContentResults <- calculateGCContent(baseCallData)
+
+
+# Filtrar las lecturas basadas en el contenido de GC aceptable
+acceptableGC <- gcContentResults$gcPercentage < 50 # Definir el umbral de GC aceptable
+
+print(sum(acceptableGC))
+
+
+filteredSampler7 <- sampler7[acceptableGC]  # Filtrar las lecturas
+
+
+# Definir la ruta para el archivo de salida
+output_file <- file.path(output_folder, "filtered_and_trimmedfq7.fastq")
+
+# Escribir el nuevo archivo FastQ solo con las lecturas aceptables
+if (!file.exists(output_file)) {
+    writeFastq(filteredSampler7, output_file)
+    message("Archivo escrito: ", output_file)
+} else {
+    message("El archivo ya existe: ", output_file)
+}
+# Ahora lee el archivo filtrado para analizar su calidad
+filtered_rqcfastq7 <- readFastq(output_file)
+
+
+# Longitudes de los objetos
+length(sampler7)  # Longitud del objeto sampler7
+length(filtered_rqcfastq7)  
+
+rqcCycleGCPlot(rqcfastq7)  
+
+# Realizar el análisis de calidad en el archivo filtrado
+rqcfastq7trimmed <- rqcQA(output_file, pair = c(1,1), workers = 1)
+
+# Graficar el contenido de GC aceptable
+rqcCycleGCPlot(rqcfastq7trimmed)  
+
 
 ```
 
-ARMO FASTQ TRIMEADO
-
-
-TRIMEO DEL FASTQ 7
-
-```{r, echo = FALSE}
-head(sread(sampler), 3)
-```
+ESTE ES EL MEJORCITO
 ```{r, echo = FALSE}
 #F7
 
 b = "C:\\Users\\valen\\OneDrive\\Documents\\FACU\\Año 2\\bioinformatica\\Analisis-de-calidad-con-FastQC\\fastqfiles\\f7.fastq"
 #b = "C:\\Users\\user\\OneDrive\\Escritorio\\Bioinfo\\tp fastqc\\archivos fatsq\\f7.fastq"
-# Leer el archivo FastQ
+
+#Leer el archivo FastQ
 sampler7 <- readFastq(b)
 
+# Combinar la carpeta con el nombre del archivo
+output_file <- file.path(output_folder, "filtered_and_trimmedfq7.fastq")
+
 # Analizar la calidad con Rqc
-rqcResult <- rqcQA(sampler7, pair=c(1,1), workers=1)
+rqcfastq7 <- rqcQA(b, pair=c(1,1), workers=1)
 
-# Obtener porcentajes de GC por ciclo
-gcContent <- perCycleBase(gcContent(rqcResult))
 
-# Graficar contenido de GC
-rqcCycleGCPlot(gcContent)
+#ENCUENTRO DONDE ARRANCA A SER 100, SE QUE TENGO Q BUSCAR ENTRE 90-150  
+gcContentResults <- calculateGCContent(baseCallData)
 
-# Filtrar ciclos con alto contenido de GC (>50%)
-highGC <- gcContent > 50
+# Mostrar los resultados del contenido de GC
+print(gcContentResults)
 
-# Graficar los ciclos con contenido de GC aceptable
-acceptableGC <- gcContent <= 50
-rqcCycleGCPlot(acceptableGC)
 
-length(sampler7fixed)
-length(removed7)
+#DA ENTRE 91-145
+library(Biostrings)
+library(ShortRead)
+
+# Función para eliminar ciclos específicos
+remove_cycles <- function(fastq_object, cycles_to_remove) {
+    # Crear objetos vacíos para almacenar secuencias y cualidades filtradas
+    filtered_sequences <- DNAStringSet()
+    filtered_qualities <- BStringSet()
+    
+    # Iterar sobre cada secuencia en el objeto FastQ
+    for (i in seq_along(fastq_object)) {
+        seq <- sread(fastq_object)[i]  # Extraer la secuencia
+        qual <- as(quality(fastq_object)[i], "BStringSet")  # Extraer la calidad como un BStringSet
+        
+        # Eliminar los ciclos a remover
+        keep_indices <- setdiff(1:width(seq), cycles_to_remove)  # Índices a conservar
+        
+        # Filtrar la secuencia y calidad por los índices que no se eliminan
+        new_seq <- subseq(seq, start = min(keep_indices), end = max(keep_indices))
+        new_qual <- subseq(qual, start = min(keep_indices), end = max(keep_indices))
+        
+        # Añadir las secuencias y calidades filtradas a los nuevos objetos
+        filtered_sequences <- append(filtered_sequences, new_seq)
+        filtered_qualities <- append(filtered_qualities, new_qual)
+    }
+    
+    # Crear el nuevo objeto FastQ con las secuencias y cualidades filtradas
+    filtered_fastq <- ShortReadQ(sread = filtered_sequences, quality = FastqQuality(filtered_qualities), id = id(fastq_object))
+    
+    return(filtered_fastq)
+}
+
+# Definir los ciclos a eliminar
+cycles_to_remove <- c(91:146)
+
+# Aplicar la función
+filtered_sampler7 <- remove_cycles(sampler7, cycles_to_remove)
+
+# Comprobar el resultado
+cat("Número de lecturas originales:", length(sampler7), "\n")
+cat("Número de lecturas después de filtrar:", length(filtered_sampler7), "\n")
+
+
+# Crear la ruta de salida para el nuevo archivo FASTQ
+output_file <- file.path(output_folder, "filtered_and_trimmedfq7.fastq")
+
+# Escribir el nuevo archivo FastQ
+if (!file.exists(output_file)) {
+    writeFastq(filtered_sampler7, output_file)
+    message("Archivo escrito: ", output_file)
+} else {
+    message("El archivo ya existe: ", output_file)
+}
+
+# Ahora lee el archivo filtrado para analizar su calidad
+filtered_rqcfastq7 <- readFastq(output_file)
+
+
+# Longitudes de los objetos
+length(sampler7)  
+length(filtered_rqcfastq7)  
+
+rqcCycleGCPlot(rqcfastq7)  
+
+# Realizar el análisis de calidad en el archivo filtrado
+resulttrimmed <- rqcQA(output_file, pair = c(1,1), workers = 1)
+
+# Graficar el contenido de GC aceptable
+rqcCycleGCPlot(resulttrimmed)  
 
 
 
